@@ -1,0 +1,28 @@
+Liquid Crystal library for Arduino. This library is commonly used to interface with LCD displays, allowing you to control and display information on them. 
+
+Here's a list of some common functions provided by the LiquidCrystal library in Arduino:
+
+1. `LiquidCrystal(rs, enable, d4, d5, d6, d7)`: Constructor to initialize the LCD object.
+2. `begin(cols, rows)`: Initializes the LCD with the specified number of columns and rows.
+3. `clear()`: Clears the LCD screen.
+4. `home()`: Moves the cursor to the home position (0,0).
+5. `setCursor(col, row)`: Sets the cursor position to the specified column and row.
+6. `print(text)`: Displays the given text at the current cursor position.
+7. `write(character)`: Displays the given character at the current cursor position.
+8. `scrollDisplayLeft()`: Scrolls the contents of the display to the left.
+9. `scrollDisplayRight()`: Scrolls the contents of the display to the right.
+10. `noDisplay()`: Turns off the display (content remains intact).
+11. `display()`: Turns on the display after using `noDisplay()`.
+12. `noCursor()`: Hides the cursor.
+13. `cursor()`: Shows the cursor.
+14. `noBlink()`: Disables cursor blinking.
+15. `blink()`: Enables cursor blinking.
+16. `createChar(location, charMap[])`: Defines a custom character at the specified location.
+17. `write(byte)`: Displays the character corresponding to the specified ASCII value.
+18. `command(byte)`: Sends a custom command to the LCD.
+19. `autoscroll()`: Enables automatic scrolling of the text.
+20. `noAutoscroll()`: Disables automatic scrolling.
+21. `leftToRight()`: Sets the text direction from left to right.
+22. `rightToLeft()`: Sets the text direction from right to left.
+
+Remember that these are just some of the functions provided by the LiquidCrystal library. You can find more details and examples in the official Arduino documentation or online tutorials.

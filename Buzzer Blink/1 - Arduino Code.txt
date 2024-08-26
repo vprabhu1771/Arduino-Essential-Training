@@ -1,0 +1,25 @@
+// Pin number where the Buzzer is connected
+#define buzzerPin 8
+
+void setup() 
+{
+
+  // Set the Buzzer pin as an output
+  pinMode(buzzerPin, OUTPUT); 
+
+}
+
+void loop() 
+{
+  // Turn the Buzzer on
+  digitalWrite(buzzerPin, HIGH); 
+  
+  // Wait for 1 second
+  delay(1000); 
+
+  // Turn the Buzzer off
+  digitalWrite(buzzerPin, LOW); 
+  
+  // Wait for 1 second
+  delay(1000); 
+}

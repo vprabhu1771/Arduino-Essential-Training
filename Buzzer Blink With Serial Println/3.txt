@@ -1,0 +1,33 @@
+// Pin number where the Buzzer is connected
+#define buzzerPin 8
+
+void setup() 
+{
+
+  // Set the Buzzer pin as an output
+  pinMode(buzzerPin, OUTPUT); 
+
+  // Start serial communication at 9600 baud rate
+  Serial.begin(9600);
+}
+
+void loop() 
+{
+  // Turn the Buzzer on
+  digitalWrite(buzzerPin, HIGH); 
+  
+  // Display Buzzer is on
+  Serial.println("Buzzer is ON");
+
+  // Wait for 3 seconds
+  delay(3000); 
+
+  // Turn the Buzzer off
+  digitalWrite(buzzerPin, LOW); 
+  
+  // Display Buzzer is off
+  Serial.println("Buzzer is OFF");
+
+  // Wait for 3 seconds
+  delay(3000); 
+}

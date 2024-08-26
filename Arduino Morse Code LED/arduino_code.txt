@@ -1,0 +1,51 @@
+// Define LED pin
+const int ledPin = 13;
+
+void setup() {
+  // Initialize LED pin as output
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // Call the function to blink "SOS" in Morse code
+  morseCode("SOS");
+  delay(3000); // Wait for 3 seconds before repeating
+}
+
+// Function to blink Morse code
+void morseCode(String message) {
+  // Morse code definitions
+  String morse[] = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
+
+  // Characters for the Morse code
+  String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  // Loop through each character in the message
+  for (int i = 0; i < message.length(); i++) {
+    char c = toupper(message[i]); // Convert character to uppercase
+    int index = characters.indexOf(c); // Find index of the character
+
+    // If the character is found in Morse code definitions
+    if (index != -1) {
+      String code = morse[index];
+      
+      // Loop through each dot/dash in the Morse code
+      for (int j = 0; j < code.length(); j++) {
+        if (code[j] == '.') {
+          // Blink LED for dot (short)
+          digitalWrite(ledPin, HIGH);
+          delay(200); // Dot duration
+          digitalWrite(ledPin, LOW);
+          delay(200); // Inter-element gap
+        } else if (code[j] == '-') {
+          // Blink LED for dash (long)
+          digitalWrite(ledPin, HIGH);
+          delay(600); // Dash duration
+          digitalWrite(ledPin, LOW);
+          delay(200); // Inter-element gap
+        }
+      }
+      delay(400); // Inter-character gap
+    }
+  }
+}

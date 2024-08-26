@@ -1,0 +1,63 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Pin number where the LED is connected
+#define ledPin 13
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() 
+{
+
+  lcd.init();
+
+  lcd.backlight();
+
+  lcd.print("Hello World!");
+
+  // Set the LED pin as an output
+  pinMode(ledPin, OUTPUT); 
+
+  // Start serial communication at 9600 baud rate
+  Serial.begin(9600);
+}
+
+void loop() 
+{
+
+  // Turn the LED on
+  digitalWrite(ledPin, HIGH); 
+
+  // Display LED is on
+  Serial.println("LED is ON");
+
+  // Clear the LCD
+  lcd.clear();
+    
+  // Set cursor to the beginning of the first line
+  lcd.setCursor(0, 0);
+
+  // Print the received data on the LCD
+  lcd.print("LED is ON");
+  
+  // Wait for 3 seconds
+  delay(3000); 
+
+  // Turn the LED off
+  digitalWrite(ledPin, LOW); 
+
+  // Display LED is off
+  Serial.println("LED is OFF");
+
+  // Clear the LCD
+  lcd.clear();
+    
+  // Set cursor to the beginning of the first line
+  lcd.setCursor(0, 0);
+
+  // Print the received data on the LCD
+  lcd.print("LED is OFF");
+
+  // Wait for 3 seconds
+  delay(3000); 
+}

@@ -1,0 +1,58 @@
+Here's a basic example of how you can control an LED connected to an Arduino using a PC over Bluetooth:
+
+1. Hardware Setup:
+   - Connect an LED with a current-limiting resistor to a digital pin (e.g., Pin 13) on the Arduino.
+   - Connect a Bluetooth module (e.g., HC-05 or HC-06) to the Arduino's Serial pins (TX and RX).
+
+2. Arduino Code:
+   
+// Pin connected to the LED
+int ledPin = 13;
+
+void setup() {
+
+  pinMode(ledPin, OUTPUT);
+
+  // Initialize serial communication
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  if (Serial.available() > 0) {
+
+    // Read the incoming command
+    char command = Serial.read();
+
+    if (command == '1') 
+    {
+
+      // Turn on the LED
+      digitalWrite(ledPin, HIGH);
+
+      // Send back, to the phone, the String "LED: ON"
+      Serial.println("LED: ON");
+
+    } else if (command == '0') 
+    {
+      
+      // Turn off the LED
+      digitalWrite(ledPin, LOW); 
+
+      // Send back, to the phone, the String "LED: OFF"
+      Serial.println("LED: OFF");
+
+    }
+  }
+}
+
+
+3. PC Software:
+   - Open a serial terminal (like Arduino IDE's Serial Monitor).
+   - Connect to the Bluetooth module on the COM port it's using.
+
+4. Communication:
+   - In the serial terminal, send '1' to turn on the LED and '0' to turn it off.
+
+Remember, this is a basic example. Depending on your project's complexity, you might want to expand the communication protocol and add error handling to make it more robust. Also, make sure you've configured the Bluetooth module properly, including pairing it with your PC.

@@ -1,0 +1,40 @@
+import serial
+import tkinter as tk
+
+
+# Set the serial port and baud rate to match your Arduino configuration
+try:
+    ser = serial.Serial('COM6', 9600, timeout=1)
+except serial.SerialException as e:
+    print("Error opening serial port:", e)
+
+root =tk.Tk()
+
+root.geometry("300x200")
+
+def led_on():
+    ser.write(b'1')
+
+def led_off():
+    ser.write(b'0')
+
+
+button_on = tk.Button(
+    root,
+    text = "LED ON",
+    fg="white",
+    bg="#25d366",
+    command=led_on
+)
+button_on.pack()
+
+button_off = tk.Button(
+    root,
+    text = "LED OFF",
+    fg="white",
+    bg="#f33941",
+    command=led_off
+)
+button_off.pack()
+
+root.mainloop()

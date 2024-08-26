@@ -1,0 +1,19 @@
+// LCD1602 to Arduino Uno connection example
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup() {
+
+lcd.init();
+
+lcd.backlight();
+
+// you can now interact with the LCD, e.g.:
+lcd.print("Hello Prabhu!");
+
+}
+
+void loop() {  
+// ...
+}

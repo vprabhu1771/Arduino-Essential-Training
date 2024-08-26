@@ -1,0 +1,33 @@
+import serial
+import tkinter as tk
+
+# Set the COM port and baud rate for your Bluetooth module
+# Replace with the actual COM port
+COM_PORT = 'COMX'  
+BAUD_RATE = 9600
+
+# Create a Serial object
+ser = serial.Serial(COM_PORT, BAUD_RATE)
+
+def turn_on():
+    # Send '1' to Arduino to turn on the LED
+    ser.write(b'1')
+
+def turn_off():
+    # Send '0' to Arduino to turn off the LED
+    ser.write(b'0')
+
+# Create the GUI
+root = tk.Tk()
+root.title("LED Control")
+
+on_button = tk.Button(root, text="Turn On", command=turn_on)
+on_button.pack()
+
+off_button = tk.Button(root, text="Turn Off", command=turn_off)
+off_button.pack()
+
+root.mainloop()
+
+# Close the serial connection when the GUI is closed
+ser.close()

@@ -1,0 +1,39 @@
+import serial
+import tkinter as tk
+
+# Set the serial port and baud rate to match your Arduino configuration
+try:
+    ser = serial.Serial('COM6', 9600, timeout=1)
+except serial.SerialException as e:
+    print("Error opening serial port:", e)
+
+
+def send_to_lcd():
+    text = entry.get()
+    print(text)
+    ser.write(text.encode())
+    print(text.encode())
+    # Send a newline character to indicate the end of the message
+    #ser.write(b'\n')
+
+# Create the Tkinter window
+root = tk.Tk()
+
+root.title("LCD 16x02 Control")
+
+root.geometry("400x100")
+
+# Create and place widgets
+entry = tk.Entry(root, width=30)
+entry.pack(pady=10)
+
+send_button = tk.Button(root, text="Send to LCD", command=send_to_lcd)
+send_button.pack()
+
+quit_button = tk.Button(root, text="Quit", command=root.quit)
+quit_button.pack()
+
+root.mainloop()
+
+# Close the serial connection when the GUI is closed
+ser.close()

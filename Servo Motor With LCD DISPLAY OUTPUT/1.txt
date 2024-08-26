@@ -1,0 +1,55 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include <Servo.h>
+
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Create servo object to control a servo
+// Twelve servo objects can be created on most boards
+Servo myservo;
+
+// Variable to store the servo position
+int pos = 0;
+
+void setup() 
+{
+  lcd.init();
+
+  lcd.backlight();
+
+  // Attaches the servo on pin 8 to the servo object
+  myservo.attach(8);
+
+  // Initialize the serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Rotate servo by 360 degrees
+  myservo.write(0); // Set to 0 degrees
+  delay(5000);      // Wait for 1 second
+  Serial.println("Current position: 0 degrees");
+
+  // Clear the LCD
+  lcd.clear();
+    
+  // Set cursor to the beginning of the first line
+  lcd.setCursor(0, 0);
+
+  // Print the received data on the LCD
+  lcd.print("0 degrees");
+
+  myservo.write(180); // Set to 180 degrees
+  delay(5000);       // Wait for 1 second
+  Serial.println("Current position: 180 degrees");
+
+    // Clear the LCD
+  lcd.clear();
+    
+  // Set cursor to the beginning of the first line
+  lcd.setCursor(0, 0);
+
+  // Print the received data on the LCD
+  lcd.print("180 degrees");
+}

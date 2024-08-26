@@ -1,0 +1,27 @@
+#include <Servo.h>
+
+// Create servo object to control a servo
+// Twelve servo objects can be created on most boards
+Servo myservo;
+
+// Variable to store the servo position
+int pos = 0;
+
+void setup() {
+  // Attaches the servo on pin 8 to the servo object
+  myservo.attach(8);
+
+  // Initialize the serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Rotate servo by 360 degrees
+  myservo.write(0); // Set to 0 degrees
+  delay(1000);      // Wait for 1 second
+  Serial.println("Current position: 0 degrees");
+
+  myservo.write(180); // Set to 180 degrees
+  delay(1000);       // Wait for 1 second
+  Serial.println("Current position: 180 degrees");
+}

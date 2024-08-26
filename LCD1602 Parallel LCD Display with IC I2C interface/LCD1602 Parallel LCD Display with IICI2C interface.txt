@@ -1,0 +1,5 @@
+https://www.hackster.io/Hack-star-Arduino/learn-to-use-lcd-1602-i2c-parallel-with-arduino-uno-f73f07
+
+https://lastminuteengineers.com/i2c-lcd-arduino-tutorial/#google_vignette
+
+https://www.youtube.com/watch?v=EAeuxjtkumM

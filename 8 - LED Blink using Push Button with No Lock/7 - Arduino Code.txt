@@ -1,0 +1,71 @@
+// Pin number where the LED is connected
+#define ledPin 13
+
+int button = 2;
+
+// Variable to track LED state
+bool ledState = false;
+
+void setup() 
+{
+
+  // Set the LED pin as an output
+  pinMode(ledPin, OUTPUT); 
+
+  // Set the button pin as an input
+  pinMode(button, INPUT);
+
+  // Activate Arduino's internal pull-up resistor for the button
+  digitalWrite(button, HIGH); 
+
+  Serial.begin(9600);
+
+}
+
+void loop() 
+{
+
+  // Read the button state
+  int buttonState = digitalRead(button);
+
+  // Check if the button is pressed
+  if (buttonState == LOW)
+  {
+
+    // Debounce delay to avoid multiple readings 
+    // due to button bouncing
+    delay(50); 
+
+    // Toggle the LED state
+    ledState = !ledState;
+    
+    if (ledState)
+    {
+
+      Serial.println("Button is pressed - LED ON");
+
+      // Turn the LED on
+      digitalWrite(ledPin, HIGH);
+
+    }
+    else
+    {
+
+      Serial.println("Button is pressed - LED OFF");
+      
+      // Turn the LED off
+      digitalWrite(ledPin, LOW);
+
+    }
+
+    // Wait until the button is released
+    while (digitalRead(button) == LOW) 
+    {
+      delay(10);
+    }
+
+  }
+
+  // Small delay to improve responsiveness
+  delay(10); 
+}
