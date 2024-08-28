@@ -1,0 +1,78 @@
+Certainly! Controlling an LED and displaying its on/off state through telemetry can be a straightforward project. Here's how you can create a Python Tkinter application to control an LED and display its state:
+
+**Hardware Setup:**
+
+1. Connect an LED to a digital pin on the Arduino (e.g., pin 9). Use a current-limiting resistor in series with the LED.
+
+**Software Development:**
+
+1. **Arduino Code:**
+
+Here's a simple Arduino code that receives commands to turn the LED on and off and sends its current state as telemetry:
+
+```cpp
+const int ledPin = 9;
+bool ledState = false;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    char command = Serial.read();
+    if (command == '1') {
+      ledState = true;
+      digitalWrite(ledPin, HIGH);
+    } else if (command == '0') {
+      ledState = false;
+      digitalWrite(ledPin, LOW);
+    }
+  }
+  Serial.print(ledState);
+  delay(1000);  // Update every 1 second
+}
+```
+
+2. **Python Code with Tkinter:**
+
+Here's a Python script using Tkinter to create a GUI that allows you to control the LED's state and displays its current state:
+
+```python
+import serial
+import tkinter as tk
+
+ser = serial.Serial('COM3', 9600)  # Adjust port and baud rate
+
+def set_led(state):
+    command = '1' if state else '0'
+    ser.write(command.encode())
+
+def update_telemetry():
+    ser.write(b"REQ")
+    led_state = int(ser.readline().decode().strip())
+
+    state_label.config(text=f"LED State: {'On' if led_state else 'Off'}")
+    root.after(1000, update_telemetry)
+
+def toggle_led():
+    current_state = int(ser.readline().decode().strip())
+    set_led(not current_state)
+
+root = tk.Tk()
+root.title("LED Control")
+
+state_label = tk.Label(root, text="LED State: N/A")
+state_label.pack()
+
+toggle_button = tk.Button(root, text="Toggle LED", command=toggle_led)
+toggle_button.pack()
+
+update_telemetry()
+root.mainloop()
+```
+
+In this example, the GUI allows you to toggle the LED on and off and displays its current state based on the telemetry received from the Arduino.
+
+Make sure to adjust the serial port and other parameters to match your setup. This is a basic example, and you can further enhance it with error handling and additional features as needed.

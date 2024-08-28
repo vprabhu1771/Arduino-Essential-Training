@@ -1,0 +1,49 @@
+#include <TM1638.h>
+
+//choose digital pins compatibles with your board
+#define STB A0 // Strobe digital pin
+#define CLK A1 // clock digital pin
+#define DIO A2 // data digital pin
+
+TM1638 tm(CLK,DIO,STB);
+
+void setup() {
+  Serial.begin(115200);
+  tm.reset();
+  tm.test();
+}
+
+uint8_t pulse=PULSE1_16;
+
+void loop() {
+  const uint8_t text[]={0x7c,0x1c,0x78,0x78,0x5c,0x54};
+  for (uint8_t i=0;i<sizeof(text);i++)
+    tm.displayDig(7-i, text[i]);
+
+  uint8_t buttons = tm.getButtons();
+  tm.writeLeds(buttons);
+
+  static uint32_t timer = millis();
+  
+  if ( millis()-timer > 1000){
+    timer=millis();
+    tm.displaySetBrightness(pulse);
+    pulse = (pulse==PULSE1_16) ? PULSE14_16 : PULSE1_16;
+  }
+  
+}
+
+Sure, if you want to display the characters "abcd" on the TM1638 display using the provided custom character patterns, you need to modify the `text` array to match the custom patterns for each of these characters. Here's how you can modify the array to achieve that:
+
+```cpp
+const uint8_t text[] = {0x77, 0x5e, 0x7c, 0x58};
+```
+
+Here's the explanation of the updated `text` array:
+
+1. `0x77`: Binary `01110111` - This pattern corresponds to the segments needed to display the character 'a'.
+2. `0x5e`: Binary `01011110` - This pattern corresponds to the segments needed to display the character 'b'.
+3. `0x7c`: Binary `01111100` - This pattern corresponds to the segments needed to display the character 'c'.
+4. `0x58`: Binary `01011000` - This pattern corresponds to the segments needed to display the character 'd'.
+
+Each pattern controls which segments of the seven-segment display are lit up to form the desired characters. Make sure to use these patterns with the appropriate positions on the display digits to correctly display "abcd".

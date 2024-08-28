@@ -1,0 +1,72 @@
+Certainly! If you're working with a servo motor, the hardware setup and Arduino code will be a bit different compared to a DC motor. Servo motors have specific libraries and control methods. Here's how you can create a Python Tkinter application to control and display telemetry for a servo motor:
+
+**Hardware Setup:**
+
+1. Connect the servo motor signal pin to a PWM-enabled pin on the Arduino (e.g., pin 9).
+
+**Software Development:**
+
+1. **Arduino Code:**
+
+You'll need to use the Servo library that comes with the Arduino IDE. Here's a basic example of how the Arduino code might look:
+
+```cpp
+#include <Servo.h>
+
+Servo servoMotor;
+int servoPosition = 90; // Initial position
+
+void setup() {
+  servoMotor.attach(9); // Attach the servo to pin 9
+  servoMotor.write(servoPosition); // Move the servo to initial position
+}
+
+void loop() {
+  // Your loop logic if needed
+}
+```
+
+2. **Python Code with Tkinter:**
+
+Here's a Python script using Tkinter to create a GUI that allows you to control the servo motor's position and displays its current position:
+
+```python
+import serial
+import tkinter as tk
+
+ser = serial.Serial('COM3', 9600)  # Adjust port and baud rate
+
+def send_position(position):
+    ser.write(f"POS{position}\n".encode())
+
+def update_telemetry():
+    ser.write(b"REQ")
+    data = ser.readline().decode().strip().split(',')
+    servo_position = int(data[0])
+
+    position_label.config(text=f"Servo Position: {servo_position} degrees")
+    root.after(1000, update_telemetry)
+
+def move_servo():
+    position = int(position_entry.get())
+    send_position(position)
+
+root = tk.Tk()
+root.title("Servo Control")
+
+position_label = tk.Label(root, text="Servo Position: N/A degrees")
+position_label.pack()
+
+position_entry = tk.Entry(root)
+position_entry.pack()
+
+move_button = tk.Button(root, text="Move Servo", command=move_servo)
+move_button.pack()
+
+update_telemetry()
+root.mainloop()
+```
+
+In this example, the GUI allows you to input a position for the servo motor and move it accordingly. The telemetry data is requested and displayed similarly to the previous example.
+
+As always, ensure that you adjust the serial port and other parameters to match your setup. This is a basic example, and you can enhance it with error handling, smoother position control, and additional features as needed.

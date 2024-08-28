@@ -1,0 +1,31 @@
+import serial
+import tkinter as tk
+
+ser = serial.Serial('COM3', 9600)  # Adjust port and baud rate
+
+def set_led(state):
+    command = '1' if state else '0'
+    ser.write(command.encode())
+
+def update_telemetry():
+    ser.write(b"REQ")
+    led_state = int(ser.readline().decode().strip())
+
+    state_label.config(text=f"LED State: {'On' if led_state else 'Off'}")
+    root.after(1000, update_telemetry)
+
+def toggle_led():
+    current_state = int(ser.readline().decode().strip())
+    set_led(not current_state)
+
+root = tk.Tk()
+root.title("LED Control")
+
+state_label = tk.Label(root, text="LED State: N/A")
+state_label.pack()
+
+toggle_button = tk.Button(root, text="Toggle LED", command=toggle_led)
+toggle_button.pack()
+
+update_telemetry()
+root.mainloop()

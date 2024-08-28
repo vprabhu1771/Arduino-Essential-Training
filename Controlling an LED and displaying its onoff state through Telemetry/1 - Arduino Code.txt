@@ -1,0 +1,22 @@
+const int ledPin = 9;
+bool ledState = false;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    char command = Serial.read();
+    if (command == '1') {
+      ledState = true;
+      digitalWrite(ledPin, HIGH);
+    } else if (command == '0') {
+      ledState = false;
+      digitalWrite(ledPin, LOW);
+    }
+  }
+  Serial.print(ledState);
+  delay(1000);  // Update every 1 second
+}
