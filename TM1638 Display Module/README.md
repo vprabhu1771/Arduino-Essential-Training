@@ -1,3 +1,13 @@
+# Project: TM1638 8-Digit 7-Segment LED Display Module #1 
+```
+https://www.youtube.com/watch?v=KxfhVqne1Qs
+```
+
+# TM1638
+```
+https://www.youtube.com/watch?v=1yBg0HUhKhw&list=PL09ZAP7_T_LnkvuC1_6ARuKJc6_ZHwf-O
+```
+
 To achieve your goal of using a TM1638 display module with an Arduino and controlling LED 1 when it's pressed, you'll need to follow these steps:
 
 1. **Hardware Setup:**
